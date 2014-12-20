@@ -1,0 +1,87 @@
+Lush Array Version 1.0
+An efficient, automatically expanding array.
+
+Why is it called Lush Array?  Because it is lush with features!  OK, that 
+may have sounded a bit like marketing-speak, but seriously, this array that 
+automatically expands, can store anything, and can be pushed to and popped 
+from on either end.  You don't have to worry about anything. If that 
+doesn't sound cool, then maybe you aren't a real programmer.....
+Lush Array stores it's data as type void *, so you can use it to store 
+pointers to objects (ha! this is C!), strings, or just integers if you 
+like.
+
+How to Use
+Lush Array couldn't be simpler to use. Merely put "lush_array.h" and 
+"lush_array.c" into the same directory as your program, include it in your 
+program with a line like this:
+#include "lush_array.h"
+
+and you are ready. To compile it, you can use a command like this:
+$ gcc -o myProgram myProgram.c lush_array.c
+
+In your program, you will need to create an array and initialize it before 
+you can use it.  Do that like this:
+Array a = array_init();
+
+To set a value in the array, for example if you wanted to do something like 
+this, a[5] = value; then you use the array_set function.
+array_set(a, 5, value);
+
+In this example, if the index, 5, were beyond the end of the array, the 
+array would be expanded to make more room for it.  Only memory that is 
+needed is allocated, so if you set index 9 million, that doesn't mean 
+elements 0 through 8 million will also be allocated.  Thus, Lush Array is 
+not only convenient, it is also memory efficient.
+
+To see what is stored in the array at a particular index, for example, if 
+you wanted to do this: value = a[5], you could use the array_get function.
+value = array_get(a, 5);
+
+All right, we mentioned you can use Lush Array as a double ended queue, and 
+that is true. To push something on the end, use array_add_end().
+array_add_end(a, 5);
+
+If you wanted to add an object instead of a number, you could just do this:
+array_add_end(a, myStruct);
+
+To pop it off the end, use
+value = array_pop_end(a);
+
+If you want to only peek at the end, see what is there and not remove it, 
+then you can just use a negative number. array_get(a, -1) will return the 
+last element of the array, array_get(a,-2) will get the second to last 
+element of the array, etc.
+
+The functions for putting objects at the front are similar:
+array_add_front(a, 5);
+value = array_pop_front(a);
+
+If you want to know the size of your array, use
+size = array_size(a);
+
+
+The Example
+There is an example included with this code. To use it, type
+$ make
+$ ./example
+
+If you are interested in understanding how the array stores it's data 
+internally, then you should open  lush_array.h and change SUB_ARRAY_MAX to 
+10, and MAIN_ARRAY_DEFAULT_SIZE to 10.
+Also, this example is compiled with the DEBUG constant set. This is to 
+enable the debug print functions.  These functions aren't really very 
+useful except for debugging, so if you want to use them, add the -DDEBUG 
+flag when you are compliling.
+
+Known Bugs and Issues
+-There are no known bugs.
+
+-The array grows when items are added, but it does not shrink when items 
+are removed. This is not really a bug since it was done to make the array 
+more efficient, but it is something you should be aware of.
+
+Contact:
+If you use Lush_Array, I would be interested in hearing about it. My email 
+is:
+andrew -at- cs.byuh.edu
+
